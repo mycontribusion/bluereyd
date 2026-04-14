@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Logo = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-    <img src="/logo.png" alt="BlueReyd Logo" style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+    <Image src="/logo.png" alt="BlueReyd Logo" width={40} height={40} style={{ objectFit: 'contain' }} priority />
     <div style={{ fontWeight: 800, fontSize: '1.25rem', color: 'var(--primary)', lineHeight: 1.1 }}>
       BlueReyd <br />
       <span style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.05em', opacity: 0.8 }}>HealthTech Solutions</span>
@@ -206,7 +207,7 @@ export default function Home() {
           </div>
 
           <div className="fade-in-up" style={{ position: 'relative', display: 'flex', justifyContent: 'center', animationDelay: '0.4s' }}>
-            <div className="glass float premium-glow" style={{
+            <div className="glass premium-glow" style={{
               width: '100%',
               aspectRatio: '16/10',
               borderRadius: 'var(--radius-lg)',
