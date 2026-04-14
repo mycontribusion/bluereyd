@@ -94,6 +94,65 @@ ul {
   transform: translateZ(0);
 }
 
+/* Solid Nav Override */
+.solid-nav {
+  background: var(--bg-section);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* CSS-Only Lightning Dropdown */
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 220px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  z-index: 999;
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--border);
+  background: var(--bg-section);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.15s ease-out;
+  pointer-events: none;
+}
+
+.dropdown-container:hover .dropdown-menu,
+.dropdown-container:focus-within .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background: var(--bg-section);
+  transition: background 0.1s;
+}
+
+.dropdown-item:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: var(--bg-main);
+}
+
 .btn {
   padding: 12px 28px;
   border-radius: var(--radius-md);

@@ -38,7 +38,6 @@ const ThemeToggle = ({ theme, toggle }: { theme: string; toggle: () => void }) =
 
 export default function Home() {
   const [theme, setTheme] = useState('light');
-  const [connectOpen, setConnectOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('bluereyd-theme') ||
@@ -57,10 +56,10 @@ export default function Home() {
   const portfolio = [
     {
       title: "Likita Ba Boka Ba",
-      tag: "Clinician-Led AI",
+      tag: "Health Awareness",
       link: "https://likita-ba-boka-ba.vercel.app",
-      description: "Localized health education and diagnostics platform designed for the unique challenges of Northern Nigeria.",
-      features: ["Dialect Support", "AI Diagnostics", "Education First"]
+      description: "Localized health education and awareness platform delivered entirely in Hausa for the unique challenges of Northern Nigeria.",
+      features: ["Hausa Language", "Health Education", "Community Focused"]
     },
     {
       title: "CalcForDocs",
@@ -98,7 +97,7 @@ export default function Home() {
   return (
     <main>
       {/* Navigation */}
-      <nav className="glass fade-in-up" style={{
+      <nav className="solid-nav fade-in-up" style={{
         position: 'fixed',
         top: 0,
         width: '100%',
@@ -114,41 +113,27 @@ export default function Home() {
           <Logo />
           <div className="nav-links" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
             <Link href="#portfolio" style={{ fontWeight: 600 }}>Portfolio</Link>
-            <Link href="#services" style={{ fontWeight: 600 }}>Services</Link>
             <Link href="#ngo" style={{ fontWeight: 600 }}>NGO Gateway</Link>
           </div>
           {/* Always-visible controls */}
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
             <ThemeToggle theme={theme} toggle={toggleTheme} />
             {/* Connect dropdown */}
-            <div style={{ position: 'relative' }}>
-              <button
-                onClick={() => setConnectOpen(o => !o)}
-                className="btn btn-primary"
-                style={{ padding: '10px 20px', gap: '8px' }}
-              >
+            <div className="dropdown-container">
+              <button className="btn btn-primary" style={{ padding: '10px 20px', gap: '8px' }}>
                 Connect
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform 0.2s', transform: connectOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}><path d="M6 9l6 6 6-6" /></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
               </button>
-              {connectOpen && (
-                <>
-                  <div onClick={() => setConnectOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
-                  <div className="glass" style={{ position: 'absolute', top: 'calc(100% + 10px)', right: 0, minWidth: '220px', borderRadius: 'var(--radius-md)', overflow: 'hidden', zIndex: 999, boxShadow: '0 16px 40px rgba(0,0,0,0.2)', border: '1px solid var(--border)' }}>
-                    <Link href={`mailto:${contactEmail}`} onClick={() => setConnectOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px', fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)', borderBottom: '1px solid var(--border)', background: 'var(--bg-section)', transition: 'background 0.2s' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-main)')}
-                      onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-section)')}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
-                      Email
-                    </Link>
-                    <Link href={linkedInUrl} target="_blank" rel="noopener noreferrer" onClick={() => setConnectOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px', fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)', background: 'var(--bg-section)', transition: 'background 0.2s' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-main)')}
-                      onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-section)')}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                      LinkedIn Profile
-                    </Link>
-                  </div>
-                </>
-              )}
+              <div className="dropdown-menu">
+                <Link href={`mailto:${contactEmail}`} className="dropdown-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                  Email
+                </Link>
+                <Link href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="dropdown-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                  LinkedIn Profile
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -202,7 +187,6 @@ export default function Home() {
             </p>
             <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
               <Link href="#portfolio" className="btn btn-primary">Our Solutions</Link>
-              <Link href="#services" className="btn btn-outline">Institutional Licensing</Link>
             </div>
           </div>
 
@@ -347,51 +331,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services">
-        <div className="container">
-          <div className="grid grid-2" style={{ alignItems: 'center' }}>
-            <div className="fade-in-up">
 
-              <h2 className="text-gradient" style={{ fontSize: '3.5rem' }}>Institutional Licensing</h2>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', fontSize: '1.35rem', fontWeight: 500 }}>
-                Empowering tier-1 hospitals and academic institutions with standardized protocols
-                and high-fidelity data governance systems.
-              </p>
-              <ul style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3.5rem' }}>
-                {[
-                  "Proprietary Clinical Logic Modules",
-                  "Decision Support Dashboards for CMDs",
-                  "Closed-Loop Institutional Networking",
-                  "Localized Data Compliance (NDPR)"
-                ].map((item, i) => (
-                  <li key={i} style={{ display: 'flex', gap: '16px', alignItems: 'center', color: 'var(--text-main)', fontWeight: 800, fontSize: '1.25rem' }}>
-                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 12px var(--accent)' }}></div>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link href={`mailto:${contactEmail}`} className="btn btn-primary" style={{ padding: '18px 40px', fontSize: '1.15rem' }}>Request Institutional Demo</Link>
-            </div>
-
-            <div className="glass fade-in-up premium-glow" style={{
-              padding: '3.5rem',
-              borderRadius: 'var(--radius-lg)',
-              background: 'var(--bg-section)',
-              border: '1px solid var(--border)',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.2)'
-            }}>
-              <div style={{ height: '320px', width: '100%', display: 'flex', alignItems: 'flex-end', gap: '20px' }}>
-                <div style={{ height: '40%', flex: 1, background: 'var(--secondary)', borderRadius: '10px', opacity: 0.15 }}></div>
-                <div style={{ height: '75%', flex: 1, background: 'var(--secondary)', borderRadius: '10px', opacity: 0.35 }}></div>
-                <div style={{ height: '55%', flex: 1, background: 'var(--secondary)', borderRadius: '10px', opacity: 0.55 }}></div>
-                <div style={{ height: '95%', flex: 1, background: 'var(--accent)', borderRadius: '10px', boxShadow: '0 12px 35px rgba(255, 45, 85, 0.6)' }}></div>
-                <div style={{ height: '65%', flex: 1, background: 'var(--secondary)', borderRadius: '10px' }}></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Partners Section */}
       <section id="ngo" style={{ background: 'var(--bg-section)' }}>
@@ -407,10 +347,9 @@ export default function Home() {
             <div style={{ fontSize: 'clamp(0.7rem, 2vw, 1rem)', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '1.5rem' }}>
               Social Impact Architecture
             </div>
-            <h2 className="text-gradient" style={{ fontSize: 'clamp(2rem, 6vw, 4rem)' }}>The NGO Gateway</h2>
+            <h2 className="text-gradient" style={{ fontSize: 'clamp(2rem, 6vw, 4rem)' }}>The "Clinician-Led" Impact Portal</h2>
             <p style={{ maxWidth: '850px', margin: '0 auto 3.5rem', color: 'var(--text-muted)', fontSize: 'clamp(1rem, 2.5vw, 1.35rem)', lineHeight: 1.7, fontWeight: 500 }}>
-              Partner with BlueReyd to standardize healthcare delivery in neglected communities.
-              Our infrastructure provides the reliable digital backbone for large-scale clinical interventions.
+              Partner with BlueReyd to standardize healthcare delivery in underserved regions. Our clinician-engineered infrastructure provides the reliable digital backbone for large-scale interventions, ensuring that technical precision meets real-world clinical reality—regardless of network state.
             </p>
             <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Link href={`mailto:${contactEmail}`} className="btn btn-primary" style={{ background: 'var(--accent)', padding: '18px 36px', fontSize: '1.15rem', gap: '10px' }}>

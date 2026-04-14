@@ -26,7 +26,7 @@ BlueReyd bridges the gap between high-stakes clinical expertise and full-stack t
 
 | Product | Description |
 |---|---|
-| [Likita Ba Boka Ba](https://likita-ba-boka-ba.vercel.app) | Localized AI health education for Northern Nigeria |
+| [Likita Ba Boka Ba](https://likita-ba-boka-ba.vercel.app) | Localized health awareness platform delivered in Hausa |
 | [CalcForDocs](https://calcfordocs.vercel.app) | 45+ offline clinical calculators for healthcare professionals |
 | [Hausaclerking](https://hausaclerking.vercel.app) | Hausa-language medical clerking & structured history tool |
 | [4MyTeam](https://4myteam.vercel.app) | Real-time patient management & ward coordination system |
