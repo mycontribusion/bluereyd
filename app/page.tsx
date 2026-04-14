@@ -5,13 +5,7 @@ import Link from 'next/link';
 
 const Logo = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-    <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="48" fill="white" stroke="var(--primary)" strokeWidth="2" />
-      <path d="M30 35H60C68.2843 35 75 41.7157 75 50C75 58.2843 68.2843 65 60 65H30V35Z" stroke="var(--primary)" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M30 65V35" stroke="var(--primary)" strokeWidth="8" strokeLinecap="round" />
-      <path d="M45 50H70" stroke="var(--primary)" strokeWidth="8" strokeLinecap="round" />
-      <path d="M25 50H35L40 40L50 60L55 50H75" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="heartbeat-path" style={{ filter: 'drop-shadow(0 0 2px var(--accent))' }} />
-    </svg>
+    <img src="/logo.png" alt="BlueReyd Logo" style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
     <div style={{ fontWeight: 800, fontSize: '1.25rem', color: 'var(--primary)', lineHeight: 1.1 }}>
       BlueReyd <br />
       <span style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.05em', opacity: 0.8 }}>HealthTech Solutions</span>
@@ -43,6 +37,7 @@ const ThemeToggle = ({ theme, toggle }: { theme: string; toggle: () => void }) =
 
 export default function Home() {
   const [theme, setTheme] = useState('light');
+  const [connectOpen, setConnectOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('bluereyd-theme') ||
@@ -97,6 +92,7 @@ export default function Home() {
   ];
 
   const contactEmail = "ahmadmusamuhd@gmail.com";
+  const linkedInUrl = "https://www.linkedin.com/in/ahmad-m-musa-b93587156/";
 
   return (
     <main>
@@ -119,11 +115,39 @@ export default function Home() {
             <Link href="#portfolio" style={{ fontWeight: 600 }}>Portfolio</Link>
             <Link href="#services" style={{ fontWeight: 600 }}>Services</Link>
             <Link href="#ngo" style={{ fontWeight: 600 }}>NGO Gateway</Link>
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <ThemeToggle theme={theme} toggle={toggleTheme} />
-              <Link href={`mailto:${contactEmail}`} className="btn btn-primary" style={{ padding: '10px 20px' }}>
+          </div>
+          {/* Always-visible controls */}
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+            <ThemeToggle theme={theme} toggle={toggleTheme} />
+            {/* Connect dropdown */}
+            <div style={{ position: 'relative' }}>
+              <button
+                onClick={() => setConnectOpen(o => !o)}
+                className="btn btn-primary"
+                style={{ padding: '10px 20px', gap: '8px' }}
+              >
                 Connect
-              </Link>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform 0.2s', transform: connectOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}><path d="M6 9l6 6 6-6" /></svg>
+              </button>
+              {connectOpen && (
+                <>
+                  <div onClick={() => setConnectOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
+                  <div className="glass" style={{ position: 'absolute', top: 'calc(100% + 10px)', right: 0, minWidth: '220px', borderRadius: 'var(--radius-md)', overflow: 'hidden', zIndex: 999, boxShadow: '0 16px 40px rgba(0,0,0,0.2)', border: '1px solid var(--border)' }}>
+                    <Link href={`mailto:${contactEmail}`} onClick={() => setConnectOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px', fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)', borderBottom: '1px solid var(--border)', background: 'var(--bg-section)', transition: 'background 0.2s' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-main)')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-section)')}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                      Email
+                    </Link>
+                    <Link href={linkedInUrl} target="_blank" rel="noopener noreferrer" onClick={() => setConnectOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px', fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)', background: 'var(--bg-section)', transition: 'background 0.2s' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-main)')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-section)')}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                      LinkedIn Profile
+                    </Link>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -155,8 +179,8 @@ export default function Home() {
               display: 'inline-block',
               padding: '6px 16px',
               borderRadius: '30px',
-              background: 'var(--primary-glow)',
-              color: 'var(--secondary)',
+              background: theme === 'dark' ? 'var(--primary-glow)' : 'var(--primary)',
+              color: theme === 'dark' ? 'var(--secondary)' : '#ffffff',
               fontWeight: 800,
               fontSize: '0.75rem',
               textTransform: 'uppercase',
@@ -288,7 +312,7 @@ export default function Home() {
       </section>
 
       {/* Commitment Callout */}
-      <section style={{ textAlign: 'center', position: 'relative', padding: '120px 0' }}>
+      <section style={{ textAlign: 'center', position: 'relative', padding: '120px 5%' }}>
         <div className="container">
           <div className="glass fade-in-up" style={{
             padding: '6rem 3rem',
@@ -302,8 +326,8 @@ export default function Home() {
           }}>
             <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'white', opacity: 0.03, borderRadius: '50%' }}></div>
 
-            <h2 style={{ color: 'white', fontSize: 'clamp(2.5rem, 6vw, 3.5rem)' }}>Resilient by Design</h2>
-            <p style={{ fontSize: '1.5rem', maxWidth: '850px', margin: '0 auto 3.5rem', opacity: 1, lineHeight: 1.6, fontWeight: 500 }}>
+            <h2 style={{ color: 'white', fontSize: 'clamp(1.75rem, 5vw, 3rem)' }}>Resilient by Design</h2>
+            <p style={{ fontSize: 'clamp(1rem, 2.5vw, 1.35rem)', maxWidth: '850px', margin: '0 auto 3.5rem', opacity: 1, lineHeight: 1.6, fontWeight: 500 }}>
               Our commitment is to monolithic, 100% reliable Progressive Web Apps (PWAs) that excel at the patient's bedside, regardless of network state.
             </p>
             <div style={{ display: 'flex', gap: '4rem', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -313,7 +337,7 @@ export default function Home() {
                 { val: "Cloud/Local", label: "Hybrid Precision" }
               ].map((stat, i) => (
                 <div key={i} style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'var(--secondary)', marginBottom: '0.5rem' }}>{stat.val}</div>
+                  <div style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', fontWeight: 800, color: 'var(--secondary)', marginBottom: '0.5rem' }}>{stat.val}</div>
                   <div style={{ fontSize: '1.1rem', opacity: 1, textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, color: 'white' }}>{stat.label}</div>
                 </div>
               ))}
@@ -327,7 +351,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-2" style={{ alignItems: 'center' }}>
             <div className="fade-in-up">
-              <div style={{ color: 'var(--accent)', fontWeight: 800, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '1rem' }}>Enterprise</div>
+
               <h2 className="text-gradient" style={{ fontSize: '3.5rem' }}>Institutional Licensing</h2>
               <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', fontSize: '1.35rem', fontWeight: 500 }}>
                 Empowering tier-1 hospitals and academic institutions with standardized protocols
@@ -379,17 +403,24 @@ export default function Home() {
             background: 'var(--bg-main)',
             boxShadow: '0 30px 90px rgba(255, 45, 85, 0.2)'
           }}>
-            <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1.5rem' }}>
+            <div style={{ fontSize: 'clamp(0.7rem, 2vw, 1rem)', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '1.5rem' }}>
               Social Impact Architecture
             </div>
-            <h2 className="text-gradient" style={{ fontSize: '4.5rem' }}>The NGO Gateway</h2>
-            <p style={{ maxWidth: '850px', margin: '0 auto 3.5rem', color: 'var(--text-muted)', fontSize: '1.45rem', lineHeight: 1.7, fontWeight: 500 }}>
+            <h2 className="text-gradient" style={{ fontSize: 'clamp(2rem, 6vw, 4rem)' }}>The NGO Gateway</h2>
+            <p style={{ maxWidth: '850px', margin: '0 auto 3.5rem', color: 'var(--text-muted)', fontSize: 'clamp(1rem, 2.5vw, 1.35rem)', lineHeight: 1.7, fontWeight: 500 }}>
               Partner with BlueReyd to standardize healthcare delivery in neglected communities.
               Our infrastructure provides the reliable digital backbone for large-scale clinical interventions.
             </p>
-            <Link href={`mailto:${contactEmail}`} className="btn btn-primary" style={{ background: 'var(--accent)', padding: '20px 48px', fontSize: '1.25rem' }}>
-              Initiate Partnership
-            </Link>
+            <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+              <Link href={`mailto:${contactEmail}`} className="btn btn-primary" style={{ background: 'var(--accent)', padding: '18px 36px', fontSize: '1.15rem', gap: '10px' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                Email Us
+              </Link>
+              <Link href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ padding: '18px 36px', fontSize: '1.15rem', gap: '10px', borderColor: 'white', color: 'white' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                LinkedIn
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -411,10 +442,17 @@ export default function Home() {
           </div>
           <div className="fade-in-up" style={{ animationDelay: '0.2s' }}>
             <h4 style={{ marginBottom: '2rem', color: 'var(--secondary)', fontWeight: 800, textTransform: 'uppercase', fontSize: '1.1rem', letterSpacing: '0.15em' }}>Direct Connect</h4>
-            <Link href={`mailto:${contactEmail}`} style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-main)', wordBreak: 'break-all', letterSpacing: '-0.02em' }}>
-              {contactEmail}
-            </Link>
-            <p style={{ marginTop: '1.5rem', color: 'var(--text-muted)', fontSize: '1.2rem', fontWeight: 700 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <Link href={`mailto:${contactEmail}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, color: 'var(--secondary)' }}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                Email
+              </Link>
+              <Link href={linkedInUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0, color: '#0a66c2' }}><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                LinkedIn Profile
+              </Link>
+            </div>
+            <p style={{ marginTop: '1.5rem', color: 'var(--text-muted)', fontSize: '1rem', fontWeight: 700 }}>
               Kano, Nigeria • Global Operations
             </p>
           </div>
