@@ -7,7 +7,10 @@ import Image from 'next/image';
 const Logo = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
     <Image src="/logo.png" alt="BlueReyd" width={32} height={32} style={{ objectFit: 'contain' }} priority />
-    <span style={{ fontWeight: 850, fontSize: '1.25rem', letterSpacing: '-0.04em' }}>BlueReyd</span>
+    <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+      <span style={{ fontWeight: 850, fontSize: '1.25rem', letterSpacing: '-0.04em' }}>BlueReyd</span>
+      <span style={{ fontWeight: 600, fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-muted)' }}>HealthTech Solutions</span>
+    </div>
   </div>
 );
 
@@ -19,6 +22,27 @@ const ThemeToggle = ({ theme, toggle }: { theme: string; toggle: () => void }) =
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
     )}
   </button>
+);
+
+const ProductCard = ({ item }: { item: any }) => (
+  <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="clinical-tag">Full Offline Support</div>
+      {item.logo && <Image src={item.logo} alt={item.name} width={32} height={32} style={{ objectFit: 'contain' }} />}
+    </div>
+    <div>
+      <h3>{item.name}</h3>
+      <p style={{ marginTop: '0.75rem', fontSize: '1.05rem', lineHeight: 1.6 }}>{item.desc}</p>
+    </div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', borderTop: '1px solid var(--border)', paddingTop: '1.5rem', marginTop: 'auto' }} className="card-tags">
+      <span className="clinical-tag">CLINICIAN-VERIFIED</span>
+      <span style={{ color: 'var(--border)' }}>|</span>
+      <span className="clinical-tag">INSTANT RESULTS</span>
+    </div>
+    <Link href={item.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}>
+      Launch Component ↗
+    </Link>
+  </div>
 );
 
 export default function Home() {
@@ -178,45 +202,19 @@ export default function Home() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5rem' }}>
-            {categories.map((cat) => (
-              <div key={cat} className="workstation-header">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
-                  <div className="divider-line" style={{ height: '2px', flex: 1, background: 'var(--border)' }}></div>
-                  <h3 style={{ textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '0.15em', color: 'var(--text-muted)' }}>{cat}</h3>
-                  <div className="divider-line" style={{ height: '2px', flex: 1, background: 'var(--border)' }}></div>
-                </div>
-                <div className="grid grid-2">
-                  {workstation.filter(w => w.role === cat).map((item, i) => (
-                    <div key={i} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                        <div className="clinical-tag">Full Offline Support</div>
-                        {item.logo && <Image src={item.logo} alt={item.name} width={32} height={32} style={{ objectFit: 'contain' }} />}
-                      </div>
-                      <div>
-                        <h3>{item.name}</h3>
-                        <p style={{ marginTop: '0.75rem', fontSize: '1.05rem', lineHeight: 1.6 }}>{item.desc}</p>
-                      </div>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', borderTop: '1px solid var(--border)', paddingTop: '1.5rem', marginTop: 'auto' }} className="card-tags">
-                        <span className="clinical-tag">CLINICIAN-VERIFIED</span>
-                        <span style={{ color: 'var(--border)' }}>|</span>
-                        <span className="clinical-tag">INSTANT RESULTS</span>
-                      </div>
-                      <Link href={item.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}>
-                        Launch Component ↗
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="workstation-container">
+            <div className="grid grid-2">
+              {workstation.map((item, i) => (
+                <ProductCard key={i} item={item} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Architecture Section */}
       <section style={{ borderTop: '1px solid var(--border)' }}>
-        <div className="container grid grid-2" style={{ alignItems: 'center' }}>
+        <div className="container architecture-grid">
           <div style={{ background: 'var(--primary)', color: 'white', padding: '3.5rem', borderRadius: '16px' }}>
             <div style={{ color: 'var(--secondary)', fontWeight: 800, fontSize: '0.8rem', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>ENGINEERING PHILOSOPHY</div>
             <h2 style={{ color: 'white' }}>Built for the "Real-World Mess"</h2>
@@ -224,7 +222,7 @@ export default function Home() {
               Most modern healthtech assumes perfect conditions. We engineer for the reality of clinical work—where the network drops, time is critical, and precision cannot be sacrificed.
             </p>
           </div>
-          <div style={{ paddingLeft: '2rem' }}>
+          <div style={{ padding: '2rem 0' }}>
             <h3>Social Impact Architecture</h3>
             <p style={{ marginTop: '1.5rem', fontSize: '1.15rem' }}>
               Our architecture ensures that clinical intelligence remains accessible regardless of network state. By prioritizing hybrid execution, we bridge the gap between high-performance technical precision and the unpredictable reality of global health infrastructure.
@@ -256,11 +254,21 @@ export default function Home() {
                 Technical precision meets clinical reality—regardless of network state.
               </p>
             </div>
-            <div>
+            <div className="footer-links" style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ fontWeight: 800, marginBottom: '2rem', fontSize: '0.7rem', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>CONNECT</div>
-              <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontWeight: 600 }}>
-                <li><a href={`mailto:${contactEmail}`} style={{ color: 'var(--secondary)' }}>Email Us</a></li>
-                <li><a href={linkedInUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--secondary)' }}>LinkedIn</a></li>
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontWeight: 600, listStyle: 'none', padding: 0 }}>
+                <li>
+                  <a href={`mailto:${contactEmail}`} className="footer-link-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--secondary)' }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                    Email Us
+                  </a>
+                </li>
+                <li>
+                  <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="footer-link-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--secondary)' }}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
+                    LinkedIn
+                  </a>
+                </li>
               </ul>
             </div>
             <div>

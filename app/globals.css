@@ -185,12 +185,37 @@ p {
   gap: 2rem;
 }
 
+/* Universal Horizontal Scroll for Product Cards */
 .grid-2 {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  scroll-snap-type: x mandatory;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.grid-2::-webkit-scrollbar {
+  display: none;
+}
+
+.grid-2 .card {
+  flex: 0 0 450px;
+  scroll-snap-align: start;
+  height: auto;
 }
 
 .grid-3 {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Architecture Section - Forced Vertical Stacking */
+.architecture-grid {
+  display: grid;
+  grid-template-columns: 1fr !important;
+  gap: 3rem;
 }
 
 .resilient-strip {
@@ -225,10 +250,26 @@ p {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: white;
-  /* Force white for visibility on dark strip */
+}
+
+/* Responsive Utility Classes */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
 }
 
 @media (max-width: 640px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: block !important;
+  }
+
   section {
     padding: 40px 0;
   }
@@ -237,20 +278,11 @@ p {
     padding: 80px 0 40px;
   }
 
-  .grid {
-    gap: 1rem;
-  }
-
-  .card {
-    padding: 1.25rem;
-  }
-
   h1 {
     font-size: 1.75rem;
     line-height: 1.1;
   }
 
-  /* Further reduced for mobile */
   h2 {
     font-size: 1.5rem;
   }
@@ -259,16 +291,23 @@ p {
     font-size: 0.95rem;
   }
 
-  /* Navigation mobile cleanup */
+  /* Horizontal scroll mobile adjustments */
+  .grid-2 {
+    gap: 1.25rem !important;
+    padding: 1.5rem 1rem !important;
+    margin: 0 -1rem !important;
+  }
+
+  .grid-2 .card {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
   .sticky-nav .btn-primary {
     display: none !important;
   }
 
-  .sticky-nav .container {
-    padding: 0 1rem;
-  }
-
-  /* Hero CTAs mobile stack */
   .hero-ctas {
     flex-direction: column;
     gap: 0.75rem !important;
@@ -282,7 +321,17 @@ p {
     font-size: 0.9rem;
   }
 
-  /* Metrics strip mobile polish */
+  .footer-links {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .footer-link-item {
+    gap: 12px;
+    font-size: 1rem;
+    color: var(--text-main);
+  }
+
   .resilient-strip {
     padding: 60px 0;
   }
@@ -294,7 +343,6 @@ p {
     border-radius: 12px;
     padding: 1rem;
     background: rgba(0, 0, 0, 0.1);
-    /* Subtle grouping */
   }
 
   .metric-item {
@@ -315,7 +363,6 @@ p {
     font-size: 0.8rem !important;
   }
 
-  /* Workstation mobile spacing - Removing lines */
   .workstation-header {
     margin-bottom: 1.25rem !important;
   }
@@ -324,7 +371,6 @@ p {
     display: none !important;
   }
 
-  /* Clinical tag unified mobile layout */
   .clinical-tag {
     font-size: 0.6rem !important;
     font-weight: 800;
@@ -333,16 +379,9 @@ p {
     padding: 4px 8px;
     border-radius: 4px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .card-tags {
-    gap: 6px !important;
-    margin-top: 1rem !important;
   }
 }
 
-/* Global Clinical Tag (Desktop Default) */
 .clinical-tag {
   font-size: 0.7rem;
   font-weight: 800;
