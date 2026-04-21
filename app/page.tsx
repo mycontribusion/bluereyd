@@ -184,7 +184,7 @@ export default function Home() {
         </section>
 
         {/* Simplified Technical Strip */}
-        <div className="resilient-strip" style={{ py: '3rem' }}>
+        <div className="resilient-strip" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
           <div className="container">
             <div className="metrics-container">
               {metrics.map((m, i) => (
