@@ -14,282 +14,243 @@ const Logo = () => (
   </div>
 );
 
-const ThemeToggle = ({ theme, toggle }: { theme: string; toggle: () => void }) => (
-  <button onClick={toggle} className="theme-toggle" aria-label="Toggle Theme">
-    {theme === 'light' ? (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-    ) : (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
-    )}
-  </button>
-);
-
-const ProductCard = ({ item }: { item: any }) => (
-  <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-      <div className="clinical-tag">Full Offline Support</div>
-      {item.logo && <Image src={item.logo} alt={item.name} width={32} height={32} style={{ objectFit: 'contain' }} />}
-    </div>
-    <div>
-      <h3>{item.name}</h3>
-      <p style={{ marginTop: '0.75rem', fontSize: '1.05rem', lineHeight: 1.6 }}>{item.desc}</p>
-    </div>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', borderTop: '1px solid var(--border)', paddingTop: '1.5rem', marginTop: 'auto' }} className="card-tags">
-      {item.tags.map((tag: string, index: number) => (
-        <span key={tag} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span className="clinical-tag">{tag}</span>
-          {index < item.tags.length - 1 && <span style={{ color: 'var(--border)' }}>|</span>}
-        </span>
-      ))}
-    </div>
-    <Link href={item.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}>
-      Launch Component ↗
-    </Link>
-  </div>
-);
-
-export default function Home() {
+const ThemeToggle = () => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('bluereyd-theme') ||
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    setTheme(savedTheme);
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    const saved = localStorage.getItem('bluereyd-theme') || 'light';
+    setTheme(saved);
+    document.documentElement.setAttribute('data-theme', saved);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('bluereyd-theme', newTheme);
+  const toggle = () => {
+    const next = theme === 'light' ? 'dark' : 'light';
+    setTheme(next);
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('bluereyd-theme', next);
   };
 
+  return (
+    <button onClick={toggle} className="theme-toggle" aria-label="Toggle Theme">
+      {theme === 'light' ? (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+      ) : (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+      )}
+    </button>
+  );
+};
+
+export default function Home() {
   const workstation = [
     {
-      role: "Clinical Intelligence",
-      name: "CalcForDocs",
-      desc: "45+ medical calculators providing instant clinical decision-making support.",
-      link: "https://calcfordocs.vercel.app",
-      logo: "/calcfordocs.png",
-      tags: ["CLINICIAN-VERIFIED", "INSTANT RESULTS"]
-    },
-    {
-      role: "Workflow Operations",
       name: "4MyTeam",
-      desc: "Real-time synchronization for patient management and mortality/discharge tracking.",
+      desc: "Manage patients and track discharges with your team in real-time.",
       link: "https://4myteam.vercel.app",
-      logo: "/4myteam.png",
-      tags: ["REAL-TIME SYNC", "TEAM COORDINATION"]
+      tags: ["REAL-TIME SYNC", "TEAM REVIEWS"]
     },
     {
-      role: "Diagnostic Infrastructure",
       name: "Kano Lab Connect",
-      desc: "Linking diagnostic laboratories to clinicians for accelerated result delivery.",
+      desc: "Get lab results delivered directly to your clinical team faster.",
       link: "https://kanolabconnect.vercel.app",
-      logo: null,
-      tags: ["DIAGNOSTIC LINK", "LAB INTEGRATED"]
+      tags: ["LAB LINK", "FAST RESULTS"]
     },
     {
-      role: "Language Localization",
       name: "Hausaclerking",
-      desc: "Medical clerking tool optimized for Northern Nigerian healthcare settings.",
+      desc: "Medical clerking tool optimized for Hausa-speaking patients.",
       link: "https://hausaclerking.vercel.app",
-      logo: "/hausaclerking.png",
-      tags: ["HAUSA LOCALIZED", "CLERKING TOOLS"]
+      tags: ["HAUSA LOCALIZED", "CLERKING"]
     },
     {
-      role: "Health Awareness",
       name: "Likita Ba Boka Ba",
-      desc: "Hausa-language health education platform focused on localized awareness.",
+      desc: "Hausa-language health education and localized awareness platform.",
       link: "https://likita-ba-boka-ba.vercel.app",
-      logo: "/likita-ba-boka-ba.png",
       tags: ["PUBLIC HEALTH", "HAUSA EDUCATION"]
     }
   ];
 
-  const categories = Array.from(new Set(workstation.map(w => w.role)));
-
   const metrics = [
     { val: "100%", label: "Offline Uptime" },
-    { val: "<0.8s", label: "Runtime Response" },
-    { val: "Local", label: "Data Integrity" }
+    { val: "<0.8s", label: "Response Time" },
+    { val: "Local", label: "Data Storage" }
   ];
 
-  const scrollToWorkstation = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const element = document.getElementById('workstation');
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
     if (element) {
-      const navHeight = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-
       window.scrollTo({
-        top: offsetPosition,
+        top: element.offsetTop - 80,
         behavior: 'smooth'
       });
     }
   };
 
-  const contactEmail = "ahmadmusamuhd@gmail.com";
-  const linkedInUrl = "https://www.linkedin.com/in/ahmad-m-musa-b93587156/";
-
   return (
-    <main>
-      {/* Navigation */}
+    <>
       <nav className="sticky-nav">
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Logo />
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <a
-              href="#workstation"
-              onClick={scrollToWorkstation}
-              style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-muted)', cursor: 'pointer' }}
-            >
-              Workstation
-            </a>
-            <ThemeToggle theme={theme} toggle={toggleTheme} />
-            <Link href="https://calcfordocs.vercel.app" className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '0.9rem' }}>
-              Launch the Suite
+          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+            <Link href="#tools" className="desktop-only" onClick={(e) => { e.preventDefault(); scrollToSection('tools'); }} style={{ fontWeight: 600, fontSize: '0.9rem' }}>All Tools</Link>
+            <Link href="https://calcfordocs.vercel.app" target="_blank" className="btn btn-primary" style={{ padding: '12px 24px', fontSize: '0.9rem' }}>
+              Open Calculator
             </Link>
+            <ThemeToggle />
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="container">
-          <div style={{ display: 'inline-block', padding: '6px 14px', background: 'var(--bg-sub)', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--secondary)', marginBottom: '1.5rem', letterSpacing: '0.05em' }}>
-            CLINICIAN PRODUCT ARCHITECT
-          </div>
-          <h1 style={{ maxWidth: '900px' }}>
-            BR Health Suite: <br />
-            <span style={{ color: 'var(--secondary)' }}>The Clinician’s Digital Backbone</span>
-          </h1>
-          <p style={{ fontSize: '1.25rem', marginBottom: '3rem', maxWidth: '700px' }}>
-            Engineered for high-stakes clinical environments where technical precision meets real-world reality—regardless of connectivity status.
-          </p>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }} className="hero-ctas">
-            <a
-              href="#workstation"
-              onClick={scrollToWorkstation}
-              className="btn btn-primary"
-            >
-              Launch the Suite
-            </a>
-            <Link href={`mailto:${contactEmail}`} className="btn btn-secondary">Direct Connect</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Resilient by Design Strip */}
-      <section className="resilient-strip">
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <div style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.2em', color: 'var(--secondary)', marginBottom: '1rem' }}>SOCIAL IMPACT ARCHITECTURE</div>
-            <h2 style={{ color: 'white', marginBottom: 0 }}>Resilient by Design</h2>
-          </div>
-          <div className="metrics-container">
-            {metrics.map((m, i) => (
-              <div key={i} className="metric-item">
-                <div className="metric-value">{m.val}</div>
-                <div className="metric-label">{m.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Unified Workstation Grid */}
-      <section id="workstation" style={{ background: 'var(--bg-sub)' }}>
-        <div className="container">
-          <div style={{ maxWidth: '800px', marginBottom: '5rem' }}>
-            <h2 style={{ color: 'var(--text-main)', marginBottom: '1rem' }}>The Unified Workstation</h2>
-            <p style={{ fontSize: '1.25rem' }}>
-              Standardized clinical tools engineered for immediate utility and 100% reliability at the patient's bedside.
+      <main>
+        {/* Simplified Hero Section */}
+        <section className="hero">
+          <div className="container">
+            <div className="offline-highlight">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.58 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"></path></svg>
+              Works offline after first load
+            </div>
+            <h1 style={{ marginBottom: '1rem' }}>
+              Offline clinical tools for <span style={{ color: 'var(--secondary)' }}>real hospital work</span>
+            </h1>
+            <p style={{ fontSize: '1.3rem', marginBottom: '3rem', maxWidth: '600px', fontWeight: 500 }}>
+              Built by a doctor. Designed for unreliable networks. Works even without internet.
             </p>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }} className="hero-ctas">
+              <Link href="https://calcfordocs.vercel.app" target="_blank" className="btn btn-primary">
+                Open Calculator
+              </Link>
+              <button onClick={() => scrollToSection('tools')} className="btn btn-secondary">
+                Explore All Tools
+              </button>
+            </div>
           </div>
+        </section>
 
-          <div className="workstation-container">
+        {/* Main Product: CalcForDocs */}
+        <section id="calcfordocs" style={{ background: 'var(--bg-sub)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+          <div className="container">
+            <div className="grid grid-2" style={{ alignItems: 'center', gap: '4rem' }}>
+              <div style={{ paddingRight: '2rem' }}>
+                <div className="clinical-tag" style={{ marginBottom: '1.5rem' }}>Primary Tool</div>
+                <h2 style={{ marginBottom: '1.5rem' }}>CalcForDocs</h2>
+                <p style={{ fontSize: '1.25rem', marginBottom: '2.5rem', color: 'var(--text-main)' }}>
+                  45+ clinical calculators for fast decisions. <br />
+                  <strong>Works offline after first load.</strong>
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <Link href="https://calcfordocs.vercel.app" target="_blank" className="btn btn-primary" style={{ width: '100%' }}>
+                    Open Calculator
+                  </Link>
+                  <p style={{ fontSize: '0.9rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                    CLINICIAN-VERIFIED | INSTANT RESULTS
+                  </p>
+                </div>
+              </div>
+              <div className="desktop-only" style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '24px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff3b3b' }}></div>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffcc00' }}></div>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28c840' }}></div>
+                  <div style={{ marginLeft: 'auto', fontSize: '0.8rem', fontWeight: 700, color: 'var(--secondary)' }}>OFFLINE MODE ACTIVE</div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {[1, 2, 3].map(i => (
+                    <div key={i} style={{ height: '40px', background: 'var(--bg-sub)', borderRadius: '8px', opacity: 1 - (i * 0.2) }}></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Other Tools Section */}
+        <section id="tools">
+          <div className="container">
+            <h2 style={{ textAlign: 'center', marginBottom: '4rem' }}>More Practical Tools</h2>
             <div className="grid grid-2">
               {workstation.map((item, i) => (
-                <ProductCard key={i} item={item} />
+                <div key={i} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2.5rem' }}>
+                  <h3>{item.name}</h3>
+                  <p style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'var(--text-main)' }}>{item.desc}</p>
+                  <div style={{ marginTop: 'auto', paddingTop: '1rem', display: 'flex', gap: '8px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--secondary)', letterSpacing: '0.05em' }}>
+                    {item.tags.join(' | ')}
+                  </div>
+                  <Link href={item.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', padding: '16px' }}>
+                    Use Tool
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Simplified Technical Strip */}
+        <div className="resilient-strip" style={{ py: '3rem' }}>
+          <div className="container">
+            <div className="metrics-container">
+              {metrics.map((m, i) => (
+                <div key={i} className="metric-item">
+                  <div className="metric-value">{m.val}</div>
+                  <div className="metric-label">{m.label}</div>
+                </div>
               ))}
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Architecture Section */}
-      <section style={{ borderTop: '1px solid var(--border)' }}>
-        <div className="container architecture-grid">
-          <div style={{ background: 'var(--bg-accent-block)', color: 'var(--text-on-accent)', padding: '3.5rem', borderRadius: '16px' }}>
-            <div style={{ color: 'var(--secondary)', fontWeight: 800, fontSize: '0.8rem', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>ENGINEERING PHILOSOPHY</div>
-            <h2 style={{ color: 'var(--text-on-accent)' }}>Built for the "Real-World Mess"</h2>
-            <p style={{ color: 'var(--text-on-accent)', opacity: 0.9, fontSize: '1.1rem' }}>
-              Most modern healthtech assumes perfect conditions. We engineer for the reality of clinical work—where the network drops, time is critical, and precision cannot be sacrificed.
+        {/* Why This Exists (Founder Credibility) */}
+        <section style={{ borderTop: '1px solid var(--border)' }}>
+          <div className="container" style={{ maxWidth: '800px', textAlign: 'center' }}>
+            <h2 style={{ marginBottom: '2rem' }}>Built for the real ward</h2>
+            <p style={{ fontSize: '1.2rem', lineHeight: 1.8, color: 'var(--text-main)', marginBottom: '3rem' }}>
+              Most medical apps fail when the network drops. <br />
+              BlueReyd was built by a doctor who worked in hospitals where internet was luxury, not a guarantee. <br />
+              <strong>Clinician-led. Patient-focused. Works offline.</strong>
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem' }}>
+              <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'var(--secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800, fontSize: '1.5rem' }}>DR</div>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>Ahmad M. Musa</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Founder, BlueReyd HealthTech Solutions</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section style={{ background: 'var(--primary)', color: 'white', textAlign: 'center', padding: '100px 0' }}>
+          <div className="container">
+            <h2 style={{ color: 'white', marginBottom: '1.5rem' }}>Ready to use it?</h2>
+            <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '3rem', fontSize: '1.25rem' }}>
+              Try the clinical calculators right now. No account needed.
+            </p>
+            <Link href="https://calcfordocs.vercel.app" target="_blank" className="btn" style={{ background: 'white', color: 'var(--primary)', fontWeight: 850 }}>
+              Try CalcForDocs Now
+            </Link>
+          </div>
+        </section>
+      </main>
+
+      <footer style={{ borderTop: '1px solid var(--border)', padding: '60px 0', background: 'var(--bg-main)' }}>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '3rem', alignItems: 'center', textAlign: 'center' }}>
+          <div>
+            <Logo />
+            <p style={{ marginTop: '1.5rem', fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+              Offline clinical tools that work everywhere.
             </p>
           </div>
-          <div style={{ padding: '2rem 1.5rem' }}>
-            <h3>Social Impact Architecture</h3>
-            <p style={{ marginTop: '1.5rem', fontSize: '1.15rem', color: 'var(--text-main)' }}>
-              Our architecture ensures that clinical intelligence remains accessible regardless of connectivity status. By prioritizing offline-first execution, we bridge the gap between high-performance technical precision and the unpredictable reality of global health infrastructure.
-            </p>
+          <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <a href="mailto:connect@bluereyd.com" className="footer-link-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              Email Us
+            </a>
+            <a href="https://linkedin.com/company/bluereyd" target="_blank" className="footer-link-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              LinkedIn
+            </a>
           </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section style={{ background: 'var(--bg-sub)', textAlign: 'center' }}>
-        <div className="container">
-          <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: '1.75rem' }}>Clinician-led, patient-first engineering for the real world.</h2>
-            <div style={{ marginTop: '3rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>Ahmad M. Musa</div>
-              <div style={{ color: 'var(--secondary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', fontSize: '0.75rem' }}>Clinician Product Architect</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer style={{ padding: '6rem 0 4rem', borderTop: '1px solid var(--border)' }}>
-        <div className="container">
-          <div className="grid grid-3">
-            <div>
-              <Logo />
-              <p style={{ marginTop: '1.5rem', fontSize: '0.95rem' }}>
-                Technical precision meets clinical reality—regardless of connectivity status.
-              </p>
-            </div>
-            <div className="footer-links" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontWeight: 800, marginBottom: '2rem', fontSize: '0.7rem', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>CONNECT</div>
-              <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontWeight: 600, listStyle: 'none', padding: 0 }}>
-                <li>
-                  <a href={`mailto:${contactEmail}`} className="footer-link-item">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--secondary)' }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-                    Email Us
-                  </a>
-                </li>
-                <li>
-                  <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="footer-link-item">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--secondary)' }}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
-                    LinkedIn
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div style={{ fontWeight: 800, marginBottom: '2rem', fontSize: '0.7rem', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>GLOBAL OPERATIONS</div>
-              <div style={{ fontWeight: 600 }}>Kano, Nigeria</div>
-              <p style={{ marginTop: '1rem', fontSize: '0.9rem' }}>Deploying resilient healthcare solutions worldwide.</p>
-            </div>
-          </div>
-          <div style={{ marginTop: '6rem', paddingTop: '2rem', borderTop: '1px solid var(--border)', textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-            © 2026 BlueReyd HealthTech Solutions. All Rights Reserved.
-          </div>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>&copy; 2026 BlueReyd HealthTech Solutions.</p>
         </div>
       </footer>
-    </main>
+    </>
   );
 }
