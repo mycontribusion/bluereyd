@@ -9,7 +9,7 @@ const Logo = () => (
     <Image src="/logo.png" alt="BlueReyd" width={32} height={32} style={{ objectFit: 'contain' }} priority />
     <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
       <span style={{ fontWeight: 850, fontSize: '1.25rem', letterSpacing: '-0.04em' }}>BlueReyd</span>
-      <span style={{ fontWeight: 600, fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-muted)' }}>HealthTech Solutions</span>
+      <span style={{ fontWeight: 600, fontSize: '0.55rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-muted)' }}>HealthTech Solutions</span>
     </div>
   </div>
 );
@@ -105,7 +105,7 @@ export default function Home() {
   const metrics = [
     { val: "100%", label: "Offline Uptime" },
     { val: "<0.8s", label: "Runtime Response" },
-    { val: "Hybrid", label: "Precision" }
+    { val: "Local", label: "Data Integrity" }
   ];
 
   const scrollToWorkstation = (e: React.MouseEvent) => {
@@ -159,7 +159,7 @@ export default function Home() {
             <span style={{ color: 'var(--secondary)' }}>The Clinician’s Digital Backbone</span>
           </h1>
           <p style={{ fontSize: '1.25rem', marginBottom: '3rem', maxWidth: '700px' }}>
-            Engineered for high-stakes clinical environments where technical precision meets real-world reality—regardless of network state.
+            Engineered for high-stakes clinical environments where technical precision meets real-world reality—regardless of connectivity status.
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }} className="hero-ctas">
             <a
@@ -225,7 +225,7 @@ export default function Home() {
           <div style={{ padding: '2rem 0' }}>
             <h3>Social Impact Architecture</h3>
             <p style={{ marginTop: '1.5rem', fontSize: '1.15rem' }}>
-              Our architecture ensures that clinical intelligence remains accessible regardless of network state. By prioritizing hybrid execution, we bridge the gap between high-performance technical precision and the unpredictable reality of global health infrastructure.
+              Our architecture ensures that clinical intelligence remains accessible regardless of connectivity status. By prioritizing offline-first execution, we bridge the gap between high-performance technical precision and the unpredictable reality of global health infrastructure.
             </p>
           </div>
         </div>
@@ -251,7 +251,7 @@ export default function Home() {
             <div>
               <Logo />
               <p style={{ marginTop: '1.5rem', fontSize: '0.95rem' }}>
-                Technical precision meets clinical reality—regardless of network state.
+                Technical precision meets clinical reality—regardless of connectivity status.
               </p>
             </div>
             <div className="footer-links" style={{ display: 'flex', flexDirection: 'column' }}>
