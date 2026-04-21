@@ -35,9 +35,12 @@ const ProductCard = ({ item }: { item: any }) => (
       <p style={{ marginTop: '0.75rem', fontSize: '1.05rem', lineHeight: 1.6 }}>{item.desc}</p>
     </div>
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', borderTop: '1px solid var(--border)', paddingTop: '1.5rem', marginTop: 'auto' }} className="card-tags">
-      <span className="clinical-tag">CLINICIAN-VERIFIED</span>
-      <span style={{ color: 'var(--border)' }}>|</span>
-      <span className="clinical-tag">INSTANT RESULTS</span>
+      {item.tags.map((tag: string, index: number) => (
+        <span key={tag} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span className="clinical-tag">{tag}</span>
+          {index < item.tags.length - 1 && <span style={{ color: 'var(--border)' }}>|</span>}
+        </span>
+      ))}
     </div>
     <Link href={item.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}>
       Launch Component ↗
@@ -68,35 +71,40 @@ export default function Home() {
       name: "CalcForDocs",
       desc: "45+ medical calculators providing instant clinical decision-making support.",
       link: "https://calcfordocs.vercel.app",
-      logo: "/calcfordocs.png"
+      logo: "/calcfordocs.png",
+      tags: ["CLINICIAN-VERIFIED", "INSTANT RESULTS"]
     },
     {
       role: "Workflow Operations",
       name: "4MyTeam",
       desc: "Real-time synchronization for patient management and mortality/discharge tracking.",
       link: "https://4myteam.vercel.app",
-      logo: "/4myteam.png"
+      logo: "/4myteam.png",
+      tags: ["REAL-TIME SYNC", "TEAM COORDINATION"]
     },
     {
       role: "Diagnostic Infrastructure",
       name: "Kano Lab Connect",
       desc: "Linking diagnostic laboratories to clinicians for accelerated result delivery.",
       link: "https://kanolabconnect.vercel.app",
-      logo: null
+      logo: null,
+      tags: ["DIAGNOSTIC LINK", "LAB INTEGRATED"]
     },
     {
       role: "Language Localization",
       name: "Hausaclerking",
       desc: "Medical clerking tool optimized for Northern Nigerian healthcare settings.",
       link: "https://hausaclerking.vercel.app",
-      logo: "/hausaclerking.png"
+      logo: "/hausaclerking.png",
+      tags: ["HAUSA LOCALIZED", "CLERKING TOOLS"]
     },
     {
       role: "Health Awareness",
       name: "Likita Ba Boka Ba",
       desc: "Hausa-language health education platform focused on localized awareness.",
       link: "https://likita-ba-boka-ba.vercel.app",
-      logo: "/likita-ba-boka-ba.png"
+      logo: "/likita-ba-boka-ba.png",
+      tags: ["PUBLIC HEALTH", "HAUSA EDUCATION"]
     }
   ];
 
