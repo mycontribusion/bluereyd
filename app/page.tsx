@@ -223,16 +223,16 @@ export default function Home() {
       {/* Architecture Section */}
       <section style={{ borderTop: '1px solid var(--border)' }}>
         <div className="container architecture-grid">
-          <div style={{ background: 'var(--primary)', color: 'white', padding: '3.5rem', borderRadius: '16px' }}>
+          <div style={{ background: 'var(--bg-accent-block)', color: 'var(--text-on-accent)', padding: '3.5rem', borderRadius: '16px' }}>
             <div style={{ color: 'var(--secondary)', fontWeight: 800, fontSize: '0.8rem', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>ENGINEERING PHILOSOPHY</div>
-            <h2 style={{ color: 'white' }}>Built for the "Real-World Mess"</h2>
-            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem' }}>
+            <h2 style={{ color: 'var(--text-on-accent)' }}>Built for the "Real-World Mess"</h2>
+            <p style={{ color: 'var(--text-on-accent)', opacity: 0.9, fontSize: '1.1rem' }}>
               Most modern healthtech assumes perfect conditions. We engineer for the reality of clinical work—where the network drops, time is critical, and precision cannot be sacrificed.
             </p>
           </div>
-          <div style={{ padding: '2rem 0' }}>
+          <div style={{ padding: '2rem 1.5rem' }}>
             <h3>Social Impact Architecture</h3>
-            <p style={{ marginTop: '1.5rem', fontSize: '1.15rem' }}>
+            <p style={{ marginTop: '1.5rem', fontSize: '1.15rem', color: 'var(--text-main)' }}>
               Our architecture ensures that clinical intelligence remains accessible regardless of connectivity status. By prioritizing offline-first execution, we bridge the gap between high-performance technical precision and the unpredictable reality of global health infrastructure.
             </p>
           </div>
