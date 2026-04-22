@@ -47,27 +47,33 @@ export default function Home() {
       name: "4MyTeam",
       desc: "Manage patients and track discharges with your team in real-time.",
       link: "https://4myteam.vercel.app",
-      tags: ["REAL-TIME SYNC", "TEAM REVIEWS"]
+      tags: ["REAL-TIME SYNC", "TEAM REVIEWS"],
+      images: ["/4myteam_light.png", "/4myteam_dark.png", "/4myteam_add.png", "/4myteam_import.png", "/4myteam_export.png"]
     },
     {
       name: "Kano Lab Connect",
       desc: "Get lab results delivered directly to your clinical team faster.",
       link: "https://kanolabconnect.vercel.app",
-      tags: ["LAB LINK", "FAST RESULTS"]
+      tags: ["LAB LINK", "FAST RESULTS"],
+      images: ["/kanolab_home.png", "/kanolab_biopsy.png", "/kanolab_mri.png"]
     },
     {
       name: "Hausaclerking",
       desc: "Medical clerking tool optimized for Hausa-speaking patients.",
       link: "https://hausaclerking.vercel.app",
-      tags: ["HAUSA LOCALIZED", "CLERKING"]
+      tags: ["HAUSA LOCALIZED", "CLERKING"],
+      images: ["/hausaclerking_light.png", "/hausaclerking_dark.png", "/hausaclerking_greet.png", "/hausaclerking_prayer.png"]
     },
     {
       name: "Likita Ba Boka Ba",
       desc: "Hausa-language health education and localized awareness platform.",
       link: "https://likita-ba-boka-ba.vercel.app",
-      tags: ["PUBLIC HEALTH", "HAUSA EDUCATION"]
+      tags: ["PUBLIC HEALTH", "HAUSA EDUCATION"],
+      images: ["/likita_light.png", "/likita_dark.png", "/likita_posts.png", "/likita_category.png", "/likita_about.png"]
     }
   ];
+
+
 
   const metrics = [
     { val: "100%", label: "Offline Uptime" },
@@ -145,19 +151,22 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="desktop-only" style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '24px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+              <div className="desktop-only" style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: '24px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)', maxWidth: '500px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', padding: '0.5rem' }}>
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff3b3b' }}></div>
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffcc00' }}></div>
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28c840' }}></div>
                   <div style={{ marginLeft: 'auto', fontSize: '0.8rem', fontWeight: 700, color: 'var(--secondary)' }}>OFFLINE MODE ACTIVE</div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {[1, 2, 3].map(i => (
-                    <div key={i} style={{ height: '40px', background: 'var(--bg-sub)', borderRadius: '8px', opacity: 1 - (i * 0.2) }}></div>
+                <div className="image-carousel" style={{ margin: 0 }}>
+                  {["/calcfordocs_light.png", "/calcfordocs_dark.png", "/calcfordocs_egfr.png", "/calcordocs_bmi.png", "/calcfordocs_feedback.png"].map((img, idx) => (
+                    <div key={idx} className="carousel-image">
+                      <Image src={img} alt={`CalcForDocs screenshot ${idx + 1}`} width={500} height={300} />
+                    </div>
                   ))}
                 </div>
               </div>
+
             </div>
           </div>
         </section>
@@ -168,10 +177,17 @@ export default function Home() {
             <h2 style={{ textAlign: 'center', marginBottom: '4rem' }}>More Practical Tools</h2>
             <div className="grid grid-2">
               {workstation.map((item, i) => (
-                <div key={i} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2.5rem' }}>
+                <div key={i} className="card">
+                  <div className="image-carousel">
+                    {item.images.map((img, idx) => (
+                      <div key={idx} className="carousel-image">
+                        <Image src={img} alt={`${item.name} screenshot ${idx + 1}`} width={400} height={250} />
+                      </div>
+                    ))}
+                  </div>
                   <h3>{item.name}</h3>
-                  <p style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'var(--text-main)' }}>{item.desc}</p>
-                  <div style={{ marginTop: 'auto', paddingTop: '1rem', display: 'flex', gap: '8px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--secondary)', letterSpacing: '0.05em' }}>
+                  <p style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'var(--text-main)', marginBottom: '1rem' }}>{item.desc}</p>
+                  <div style={{ marginTop: 'auto', paddingTop: '1rem', display: 'flex', gap: '8px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--secondary)', letterSpacing: '0.05em', marginBottom: '1.5rem' }}>
                     {item.tags.join(' | ')}
                   </div>
                   <Link href={item.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', padding: '16px' }}>
@@ -180,6 +196,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
+
           </div>
         </section>
 
