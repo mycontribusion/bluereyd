@@ -7,7 +7,8 @@ import Image from 'next/image';
 
 const Logo = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-    <Image src="/logo.png" alt="BlueReyd" width={32} height={32} style={{ objectFit: 'contain' }} priority />
+    <img src="/logo.png" alt="BlueReyd" width={32} height={32} style={{ objectFit: 'contain' }} />
+
     <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
       <span style={{ fontWeight: 850, fontSize: '1.25rem', letterSpacing: '-0.04em' }}>BlueReyd</span>
       <span style={{ fontWeight: 600, fontSize: '0.55rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-muted)' }}>HealthTech Solutions</span>
