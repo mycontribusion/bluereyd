@@ -478,16 +478,19 @@ p {
 
   /* Horizontal scroll mobile adjustments */
   .grid-2 {
-    gap: 1.25rem !important;
-    padding: 1.5rem 1rem !important;
-    margin: 0 -1rem !important;
+    gap: 2rem !important;
+    padding: 1.5rem 0 !important;
+    margin: 0 auto !important;
+    grid-template-columns: 1fr !important;
   }
 
   .grid-2 .card {
-    flex: 0 0 85% !important;
-    scroll-snap-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    scroll-snap-align: none;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
   }
+
 
   .sticky-nav .btn-primary {
     display: none !important;

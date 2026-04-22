@@ -104,7 +104,18 @@ export default function Home() {
     );
   };
 
-  const calcImages = ["/calcfordocs_light.png", "/calcfordocs_dark.png", "/calcfordocs_egfr.png", "/calcordocs_bmi.png", "/calcfordocs_feedback.png"];
+  const calcImages = [
+    "/calcfordocs_light.png",
+    "/calcfordocs_dark.png",
+    "/calcfordocs_glu.png",
+    "/calcfordocs_hypok.png",
+    "/calcfordocs_map.png",
+    "/calcfordocs_t_disc.png",
+    "/calcfordocs_t_hypok.png",
+    "/calcfordocs_tab.png"
+  ];
+
+
 
 
 
@@ -112,32 +123,71 @@ export default function Home() {
   const workstation = [
     {
       name: "4MyTeam",
-      desc: "Manage patients and track discharges with your team in real-time.",
-      link: "https://4myteam.vercel.app",
+      desc: "Manage patients and track discharges with smart search and sync.",
+      link: "https://4myteam.vercel.app/",
       tags: ["REAL-TIME SYNC", "TEAM REVIEWS"],
-      images: ["/4myteam_light.png", "/4myteam_dark.png", "/4myteam_add.png", "/4myteam_import.png", "/4myteam_export.png"]
+      images: [
+        "/4myteam_light.png",
+        "/4myteam_dark.png",
+        "/4myteam_add.png",
+        "/4myteam_export.png",
+        "/4myteam_importcode.png",
+        "/4myteam_importqr.png",
+        "/4myteam_t_light.png",
+        "/4myteam_t_dark.png",
+        "/4myteam_t_mort.png"
+      ]
     },
+
     {
       name: "Kano Lab Connect",
       desc: "Get lab results delivered directly to your clinical team faster.",
-      link: "https://kanolabconnect.vercel.app",
+      link: "https://kano-lab-connect.vercel.app/",
       tags: ["LAB LINK", "FAST RESULTS"],
-      images: ["/kanolab_home.png", "/kanolab_biopsy.png", "/kanolab_mri.png"]
+      images: [
+        "/kanolab_map.png",
+        "/kanolab_list.png",
+        "/kanolab_bloodtest.png",
+        "/kanolab_xray.png",
+        "/kanolab_t_home.png",
+        "/kanolab_t_blood.png",
+        "/kanolab_t_xray.png"
+      ]
     },
+
     {
       name: "Hausaclerking",
       desc: "Medical clerking tool optimized for Hausa-speaking patients.",
-      link: "https://hausaclerking.vercel.app",
+      link: "https://hausaclerking.vercel.app/",
       tags: ["HAUSA LOCALIZED", "CLERKING"],
-      images: ["/hausaclerking_light.png", "/hausaclerking_dark.png", "/hausaclerking_greet.png", "/hausaclerking_prayer.png"]
+      images: [
+        "/hausaclerking_light.png",
+        "/hausaclerking_cough.png",
+        "/hausaclerking_cvs.png",
+        "/hausaclerking_t_light.png",
+        "/hausaclerking_t_dark.png",
+        "/hausaclerking_t_recent.png",
+        "/hausaclerking_t_fav.png",
+        "/hausaclerking_t_fever.png"
+      ]
     },
+
     {
       name: "Likita Ba Boka Ba",
-      desc: "Hausa-language health education and localized awareness platform.",
-      link: "https://likita-ba-boka-ba.vercel.app",
+      desc: "Health education platform providing verified information in Hausa.",
+      link: "https://likita-ba-boka-ba.vercel.app/",
       tags: ["PUBLIC HEALTH", "HAUSA EDUCATION"],
-      images: ["/likita_light.png", "/likita_dark.png", "/likita_posts.png", "/likita_category.png", "/likita_about.png"]
+      images: [
+        "/likita_light.png",
+        "/likita_dark.png",
+        "/likita_post.png",
+        "/likita_about.png",
+        "/likita_t_light.png",
+        "/likita_t_dark.png",
+        "/likita_t_posts.png"
+      ]
     }
+
   ];
 
 
@@ -184,9 +234,10 @@ export default function Home() {
             <h1 style={{ marginBottom: '1rem' }}>
               Offline clinical tools for <span style={{ color: 'var(--secondary)' }}>real hospital work</span>
             </h1>
-            <p style={{ fontSize: '1.3rem', marginBottom: '3rem', maxWidth: '600px', fontWeight: 500 }}>
+            <p style={{ fontSize: '1.3rem', marginBottom: '3rem', maxWidth: '600px', fontWeight: 500, margin: '0 auto 3rem auto' }}>
               Built by a doctor. Designed for unreliable networks. Works even without internet.
             </p>
+
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }} className="hero-ctas">
               <Link href="https://calcfordocs.vercel.app" target="_blank" className="btn btn-primary">
                 Open Calculator
@@ -218,20 +269,25 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="calc-featured-display" style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: '24px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)', maxWidth: '500px', width: '100%' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', padding: '0.5rem' }}>
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff3b3b' }}></div>
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffcc00' }}></div>
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28c840' }}></div>
-                  <div style={{ marginLeft: 'auto', fontSize: '0.8rem', fontWeight: 700, color: 'var(--secondary)' }}>OFFLINE MODE ACTIVE</div>
+              <div className="calc-featured-display" style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: '24px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)', width: '100%', margin: '0 auto', maxWidth: '600px' }}>
+
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginBottom: '1.5rem', padding: '0.5rem' }}>
+                  <div style={{ display: 'flex', gap: '8px', position: 'absolute', left: '0.5rem' }}>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff3b3b' }}></div>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffcc00' }}></div>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28c840' }}></div>
+                  </div>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--secondary)', letterSpacing: '0.05em' }}>OFFLINE MODE ACTIVE</div>
                 </div>
+
                 <div className="image-carousel" style={{ margin: 0 }}>
                   {calcImages.map((img, idx) => (
                     <div key={idx} className="carousel-image" onClick={() => setLightboxData({ images: calcImages, index: idx })}>
-                      <Image src={img} alt={`CalcForDocs screenshot ${idx + 1}`} width={500} height={300} />
+                      <Image src={img} alt={`CalcForDocs screenshot ${idx + 1}`} width={500} height={300} quality={60} />
                     </div>
                   ))}
                 </div>
+
 
               </div>
 
@@ -250,10 +306,11 @@ export default function Home() {
                   <div className="image-carousel">
                     {item.images.map((img, idx) => (
                       <div key={idx} className="carousel-image" onClick={() => setLightboxData({ images: item.images, index: idx })}>
-                        <Image src={img} alt={`${item.name} screenshot ${idx + 1}`} width={400} height={250} />
+                        <Image src={img} alt={`${item.name} screenshot ${idx + 1}`} width={400} height={250} quality={60} />
                       </div>
                     ))}
                   </div>
+
 
 
                   <h3>{item.name}</h3>
@@ -289,9 +346,10 @@ export default function Home() {
         <section style={{ borderTop: '1px solid var(--border)' }}>
           <div className="container" style={{ maxWidth: '800px', textAlign: 'center' }}>
             <h2 style={{ marginBottom: '2rem' }}>Built for the real ward</h2>
-            <p style={{ fontSize: '1.2rem', lineHeight: 1.8, color: 'var(--text-main)', marginBottom: '3rem' }}>
+            <p style={{ fontSize: '1.2rem', lineHeight: 1.8, color: 'var(--text-main)', marginBottom: '3rem', margin: '0 auto 3rem auto' }}>
               Most medical apps fail when the network drops. <br />
               BlueReyd was built by a doctor who worked in hospitals where internet was luxury, not a guarantee. <br />
+
               <strong>Clinician-led. Patient-focused. Works offline.</strong>
             </p>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem' }}>
@@ -308,9 +366,10 @@ export default function Home() {
         <section style={{ background: 'var(--primary)', color: 'white', textAlign: 'center', padding: '100px 0' }}>
           <div className="container">
             <h2 style={{ color: 'white', marginBottom: '1.5rem' }}>Ready to use it?</h2>
-            <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '3rem', fontSize: '1.25rem' }}>
+            <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '3rem', fontSize: '1.25rem', margin: '0 auto 3rem auto' }}>
               Try the clinical calculators right now. No account needed.
             </p>
+
             <Link href="https://calcfordocs.vercel.app" target="_blank" className="btn" style={{ background: 'white', color: 'var(--primary)', fontWeight: 850 }}>
               Try CalcForDocs Now
             </Link>
