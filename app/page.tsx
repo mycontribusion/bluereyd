@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -42,6 +43,72 @@ const ThemeToggle = () => {
 };
 
 export default function Home() {
+  const [lightboxData, setLightboxData] = useState<{ images: string[], index: number } | null>(null);
+
+  const Lightbox = () => {
+    const galleryRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      // Small timeout to ensure the container is rendered before scrolling
+      const timer = setTimeout(() => {
+        if (lightboxData && galleryRef.current) {
+          const itemWidth = galleryRef.current.offsetWidth;
+          galleryRef.current.scrollTo({
+            left: lightboxData.index * itemWidth,
+            behavior: 'auto' // Use auto for instant jump on open
+          });
+        }
+      }, 50);
+      return () => clearTimeout(timer);
+    }, [lightboxData]);
+
+    if (!lightboxData) return null;
+
+    const next = () => {
+      if (galleryRef.current) {
+        galleryRef.current.scrollBy({ left: galleryRef.current.offsetWidth, behavior: 'smooth' });
+      }
+    };
+
+    const prev = () => {
+      if (galleryRef.current) {
+        galleryRef.current.scrollBy({ left: -galleryRef.current.offsetWidth, behavior: 'smooth' });
+      }
+    };
+
+    return (
+      <div className="lightbox-overlay" onClick={() => setLightboxData(null)}>
+        <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+          <button className="lightbox-close" onClick={() => setLightboxData(null)} aria-label="Close">&times;</button>
+
+          {lightboxData.images.length > 1 && (
+            <>
+              <button className="lightbox-nav prev" onClick={prev} aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button className="lightbox-nav next" onClick={next} aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </>
+          )}
+
+          <div className="lightbox-gallery" ref={galleryRef}>
+            {lightboxData.images.map((img, i) => (
+              <div key={i} className="lightbox-gallery-item">
+                <img src={img} alt={`Full size screenshot ${i + 1}`} className="lightbox-image" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const calcImages = ["/calcfordocs_light.png", "/calcfordocs_dark.png", "/calcfordocs_egfr.png", "/calcordocs_bmi.png", "/calcfordocs_feedback.png"];
+
+
+
+
   const workstation = [
     {
       name: "4MyTeam",
@@ -151,7 +218,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="desktop-only" style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: '24px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)', maxWidth: '500px' }}>
+              <div className="calc-featured-display" style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: '24px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)', maxWidth: '500px', width: '100%' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', padding: '0.5rem' }}>
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff3b3b' }}></div>
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffcc00' }}></div>
@@ -159,13 +226,15 @@ export default function Home() {
                   <div style={{ marginLeft: 'auto', fontSize: '0.8rem', fontWeight: 700, color: 'var(--secondary)' }}>OFFLINE MODE ACTIVE</div>
                 </div>
                 <div className="image-carousel" style={{ margin: 0 }}>
-                  {["/calcfordocs_light.png", "/calcfordocs_dark.png", "/calcfordocs_egfr.png", "/calcordocs_bmi.png", "/calcfordocs_feedback.png"].map((img, idx) => (
-                    <div key={idx} className="carousel-image">
+                  {calcImages.map((img, idx) => (
+                    <div key={idx} className="carousel-image" onClick={() => setLightboxData({ images: calcImages, index: idx })}>
                       <Image src={img} alt={`CalcForDocs screenshot ${idx + 1}`} width={500} height={300} />
                     </div>
                   ))}
                 </div>
+
               </div>
+
 
             </div>
           </div>
@@ -180,11 +249,13 @@ export default function Home() {
                 <div key={i} className="card">
                   <div className="image-carousel">
                     {item.images.map((img, idx) => (
-                      <div key={idx} className="carousel-image">
+                      <div key={idx} className="carousel-image" onClick={() => setLightboxData({ images: item.images, index: idx })}>
                         <Image src={img} alt={`${item.name} screenshot ${idx + 1}`} width={400} height={250} />
                       </div>
                     ))}
                   </div>
+
+
                   <h3>{item.name}</h3>
                   <p style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'var(--text-main)', marginBottom: '1rem' }}>{item.desc}</p>
                   <div style={{ marginTop: 'auto', paddingTop: '1rem', display: 'flex', gap: '8px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--secondary)', letterSpacing: '0.05em', marginBottom: '1.5rem' }}>
@@ -268,6 +339,8 @@ export default function Home() {
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>&copy; 2026 BlueReyd HealthTech Solutions.</p>
         </div>
       </footer>
+      <Lightbox />
     </>
   );
 }
+
