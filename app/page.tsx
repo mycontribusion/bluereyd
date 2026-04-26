@@ -20,16 +20,16 @@ const ThemeToggle = () => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    const supportDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = supportDarkMode ? 'dark' : 'light';
-    setTheme(initialTheme);
-    document.documentElement.setAttribute('data-theme', initialTheme);
+    const saved = localStorage.getItem('bluereyd-theme') || 'light';
+    setTheme(saved);
+    document.documentElement.setAttribute('data-theme', saved);
   }, []);
 
   const toggle = () => {
     const next = theme === 'light' ? 'dark' : 'light';
     setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('bluereyd-theme', next);
   };
 
   return (
@@ -145,6 +145,7 @@ export default function Home() {
       name: "Kano Lab Connect",
       desc: "Get lab results delivered directly to your clinical team faster.",
       link: "https://kano-lab-connect.vercel.app/",
+      logo: "/kanolab.png",
       tags: ["LAB LINK", "FAST RESULTS"],
       images: [
         "/kanolab_list.png",
