@@ -34,10 +34,8 @@ export default function RootLayout({
           __html: `
             (function() {
               try {
-                var theme = localStorage.getItem('bluereyd-theme');
                 var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-                if (!theme && supportDarkMode) theme = 'dark';
-                if (!theme) theme = 'light';
+                var theme = supportDarkMode ? 'dark' : 'light';
                 document.documentElement.setAttribute('data-theme', theme);
               } catch (e) {}
             })();

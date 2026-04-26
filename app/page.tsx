@@ -20,16 +20,16 @@ const ThemeToggle = () => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    const saved = localStorage.getItem('bluereyd-theme') || 'light';
-    setTheme(saved);
-    document.documentElement.setAttribute('data-theme', saved);
+    const supportDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = supportDarkMode ? 'dark' : 'light';
+    setTheme(initialTheme);
+    document.documentElement.setAttribute('data-theme', initialTheme);
   }, []);
 
   const toggle = () => {
     const next = theme === 'light' ? 'dark' : 'light';
     setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('bluereyd-theme', next);
   };
 
   return (
