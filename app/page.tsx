@@ -126,6 +126,7 @@ export default function Home() {
       name: "4MyTeam",
       desc: "Manage patients and track discharges with smart search and sync.",
       link: "https://4myteam.vercel.app/",
+      logo: "/4myteam.png",
       tags: ["REAL-TIME SYNC", "TEAM REVIEWS"],
       images: [
         "/4myteam_light.png",
@@ -146,12 +147,13 @@ export default function Home() {
       link: "https://kano-lab-connect.vercel.app/",
       tags: ["LAB LINK", "FAST RESULTS"],
       images: [
-        "/kanolab_map.png",
         "/kanolab_list.png",
+        "/kanolab_details.png",
         "/kanolab_bloodtest.png",
-        "/kanolab_xray.png",
         "/kanolab_t_home.png",
-        "/kanolab_t_blood.png",
+        "/kanolab_t_available.png",
+        "/kanolab_t_near.png",
+        "/kanolab_t_details.png",
         "/kanolab_t_xray.png"
       ]
     },
@@ -160,6 +162,7 @@ export default function Home() {
       name: "Hausaclerking",
       desc: "Medical clerking tool optimized for Hausa-speaking patients.",
       link: "https://hausaclerking.vercel.app/",
+      logo: "/hausaclerking.png",
       tags: ["HAUSA LOCALIZED", "CLERKING"],
       images: [
         "/hausaclerking_light.png",
@@ -177,6 +180,7 @@ export default function Home() {
       name: "Likita Ba Boka Ba",
       desc: "Health education platform providing verified information in Hausa.",
       link: "https://likita-ba-boka-ba.vercel.app/",
+      logo: "/likita-ba-boka-ba.png",
       tags: ["PUBLIC HEALTH", "HAUSA EDUCATION"],
       images: [
         "/likita_light.png",
@@ -256,7 +260,10 @@ export default function Home() {
             <div className="grid grid-2" style={{ alignItems: 'center', gap: '4rem' }}>
               <div style={{ paddingRight: '2rem' }}>
                 <div className="clinical-tag" style={{ marginBottom: '1.5rem' }}>Primary Tool</div>
-                <h2 style={{ marginBottom: '1.5rem' }}>CalcForDocs</h2>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.5rem' }}>
+                  <Image src="/calcfordocs.png" alt="CalcForDocs" width={40} height={40} style={{ objectFit: 'contain', borderRadius: '8px' }} />
+                  <h2 style={{ margin: 0 }}>CalcForDocs</h2>
+                </div>
                 <p style={{ fontSize: '1.25rem', marginBottom: '2.5rem', color: 'var(--text-main)' }}>
                   45+ clinical calculators for fast decisions. <br />
                   <strong>Works offline after first load.</strong>
@@ -314,7 +321,10 @@ export default function Home() {
 
 
 
-                  <h3>{item.name}</h3>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                    <h3 style={{ margin: 0 }}>{item.name}</h3>
+                    {item.logo && <Image src={item.logo} alt={item.name} width={32} height={32} style={{ objectFit: 'contain', borderRadius: '4px' }} />}
+                  </div>
                   <p style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'var(--text-main)', marginBottom: '1rem' }}>{item.desc}</p>
                   <div style={{ marginTop: 'auto', paddingTop: '1rem', display: 'flex', gap: '8px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--secondary)', letterSpacing: '0.05em', marginBottom: '1.5rem' }}>
                     {item.tags.join(' | ')}
