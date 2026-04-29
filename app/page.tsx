@@ -144,7 +144,7 @@ export default function Home() {
     {
       name: "Kano Lab Connect",
       desc: "Get lab results delivered directly to your clinical team faster.",
-      link: "https://kano-lab-connect.vercel.app/",
+      link: "https://kanolabconnect.vercel.app/",
       logo: "/kanolab.png",
       tags: ["LAB LINK", "FAST RESULTS"],
       images: [
@@ -419,7 +419,7 @@ export default function Home() {
             <div className="footer-links-group">
               <h4 className="footer-heading">Ecosystem</h4>
               <ul className="footer-links">
-                <li><Link href="https://kano-lab-connect.vercel.app">Kano Lab Connect</Link></li>
+                <li><Link href="https://kanolabconnect.vercel.app">Kano Lab Connect</Link></li>
                 <li><Link href="https://likita-ba-boka-ba.vercel.app">Likita Ba Boka Ba</Link></li>
               </ul>
             </div>

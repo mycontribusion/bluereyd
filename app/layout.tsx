@@ -47,6 +47,19 @@ export default function RootLayout({
             })();
           `,
         }} />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                  console.log('PWA: ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                  console.log('PWA: ServiceWorker registration failed: ', err);
+                });
+              });
+            }
+          `,
+        }} />
       </head>
       <body className={inter.className}>
         {children}
